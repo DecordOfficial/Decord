@@ -35,9 +35,9 @@ https://discord.gg/D9uwnFnqmd
 
 <a href="https://star-history.com/#VDecordOfficial/Decord&Timeline">
   <picture>
-    [<source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=DecordOfficial/Decord&type=Timeline&theme=dark" />
+    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=DecordOfficial/Decord&type=Timeline&theme=dark" />
     <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=DecordOfficial/Decord&type=Timeline" />
-    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=DecordOfficial/Decord&type=Timeline" />](https://www.star-history.com/?repos=VDecordOfficial%2FDecord&type=timeline&legend=top-left)
+    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=DecordOfficial/Decord&type=Timeline" />
   </picture>
 </a>
 
