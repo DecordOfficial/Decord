@@ -47,7 +47,19 @@ export const IS_ANTI_CRASH_TEST = process.argv.includes("--anti-crash-test");
 export const IS_STANDALONE = process.argv.includes("--standalone");
 
 export const IS_UPDATER_DISABLED = process.argv.includes("--disable-updater");
-export const gitHash = process.env.VENCORD_HASH || execSync("git rev-parse --short HEAD", { encoding: "utf-8" }).trim();
+function resolveGitHash() {
+    if (process.env.VENCORD_HASH || process.env.DECORD_HASH)
+        return process.env.VENCORD_HASH || process.env.DECORD_HASH;
+    try {
+        return execSync("git rev-parse --short HEAD", {
+            encoding: "utf-8",
+            stdio: ["ignore", "pipe", "ignore"]
+        }).trim();
+    } catch {
+        return "unknown";
+    }
+}
+export const gitHash = resolveGitHash();
 
 export const banner = {
     js: `
@@ -145,7 +157,11 @@ export const globPlugins = kind => ({
         });
 
         build.onLoad({ filter, namespace: "import-plugins" }, async () => {
-            const pluginDirs = ["plugins/_api", "plugins/_core", "plugins", "userplugins"];
+            const pluginDirs = [
+                "plugins/_api", "plugins/_core", "plugins",
+                "equicordplugins/_api", "equicordplugins/_core", "equicordplugins",
+                "decplugins", "userplugins"
+            ];
             let code = "";
             let pluginsCode = "\n";
             let metaCode = "\n";

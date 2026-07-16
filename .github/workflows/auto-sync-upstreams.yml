@@ -1,0 +1,47 @@
+# Automatically sync Discord patches + Equicord plugins into THIS repo.
+# Commits directly to main so https://github.com/DecordOfficial/Decord stays up to date.
+
+name: Auto Sync Upstreams
+
+on:
+  schedule:
+    # Every day 06:00 UTC
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: auto-sync-upstreams
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Sync Vencord + Equicord
+        run: node scripts/auto-sync-upstreams.mjs
+
+      - name: Commit & push if changed
+        run: |
+          git config user.name "Decord Auto Sync"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --staged --quiet; then
+            echo "No changes"
+            exit 0
+          fi
+          git commit -m "chore: auto-sync Vencord + Equicord $(date -u +%Y-%m-%d)"
+          git push origin HEAD:main

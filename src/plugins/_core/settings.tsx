@@ -171,8 +171,8 @@ export default definePlugin({
         const vencordEntries: SettingsLayoutNode[] = [
             buildEntry({
                 key: "vencord_main",
-                title: "Vencord",
-                panelTitle: "Vencord Settings",
+                title: "Decord",
+                panelTitle: "Decord Settings",
                 Component: VencordTab,
                 Icon: MainSettingsIcon
             }),
@@ -191,14 +191,14 @@ export default definePlugin({
             !IS_UPDATER_DISABLED && UpdaterTab && buildEntry({
                 key: "vencord_updater",
                 title: "Updater",
-                panelTitle: "Vencord Updater",
+                panelTitle: "Decord Updater",
                 Component: UpdaterTab,
                 Icon: UpdaterIcon
             }),
             buildEntry({
                 key: "vencord_cloud",
                 title: "Cloud",
-                panelTitle: "Vencord Cloud",
+                panelTitle: "Decord Cloud",
                 Component: CloudTab,
                 Icon: CloudIcon
             }),
@@ -232,7 +232,7 @@ export default definePlugin({
         const vencordSection: SettingsLayoutNode = {
             key: "vencord_section",
             type: LayoutTypes.SECTION,
-            useTitle: () => "Vencord Settings",
+            useTitle: () => "Decord Settings",
             buildLayout: () => vencordEntries
         };
 

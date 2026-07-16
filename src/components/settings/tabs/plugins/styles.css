@@ -1,5 +1,5 @@
 /*
- * Vencord, a modification for Discord's desktop app
+ * Decord, a modification for Discord's desktop app
  * Copyright (c) 2022 Vendicated and contributors
  *
  * This program is free software: you can redistribute it and/or modify
@@ -53,6 +53,41 @@
     height: 40px;
 }
 
+.vc-plugins-name-with-source {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    min-width: 0;
+}
+
+.vc-plugins-name-with-source > span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.vc-plugins-source-icon {
+    width: 18px;
+    height: 18px;
+    flex: 0 0 18px;
+}
+
+.vc-plugins-source-icon-vencord {
+    color: #dbb8ff;
+}
+
+.vc-plugins-source-icon-equicord {
+    color: #57f287;
+}
+
+.vc-plugins-source-icon-decord {
+    color: #5865f2;
+}
+
+.vc-plugins-source-icon-user {
+    color: var(--text-muted);
+}
+
 .vc-addon-badge {
     padding: 0 6px;
     font-family: var(--font-display);
@@ -71,10 +106,67 @@
 
 .vc-plugins-info-card {
     padding: 1em;
-    height: 8em;
+    min-height: 8em;
     display: flex;
     flex-direction: column;
     gap: 0.25em;
+}
+
+.vc-plugins-source-stats {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.vc-plugins-source-stat {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    min-width: 0;
+    padding: 7px 9px;
+    border: 1px solid var(--border-subtle);
+    border-radius: 6px;
+    background: var(--background-mod-subtle);
+    color: var(--text-normal);
+    cursor: pointer;
+}
+
+.vc-plugins-source-stat:hover {
+    background: var(--background-mod-normal);
+}
+
+.vc-plugins-source-stat span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.vc-plugins-source-stat strong {
+    font-size: 14px;
+}
+
+.vc-plugins-source-stat-vencord {
+    border-left: 3px solid #dbb8ff;
+}
+
+.vc-plugins-source-stat-equicord {
+    border-left: 3px solid #57f287;
+}
+
+.vc-plugins-source-stat-decord {
+    border-left: 3px solid #5865f2;
+}
+
+.vc-plugins-source-stat-user {
+    border-left: 3px solid var(--text-muted);
+}
+
+@media (width <= 700px) {
+    .vc-plugins-source-stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
 }
 
 .vc-plugins-restart-button {

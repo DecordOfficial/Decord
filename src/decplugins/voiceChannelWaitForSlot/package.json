@@ -1,0 +1,19 @@
+{
+    "name": "voiceChannelWaitForSlot",
+    "version": "1.0.0",
+    "description": "Automatically joins voice channels when they are no longer full",
+    "main": "index.tsx",
+    "author": {
+        "name": "Bluscream",
+        "url": "https://github.com/Bluscream"
+    },
+    "license": "GPL-3.0-or-later",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/bluscream-vencord-plugins/voiceChannelWaitForSlot.git"
+    },
+    "vencord": {
+        "plugin": true,
+        "userPlugin": true
+    }
+}

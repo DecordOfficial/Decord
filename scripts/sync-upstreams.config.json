@@ -1,0 +1,26 @@
+{
+  "vencord": {
+    "repo": "https://github.com/Vendicated/Vencord.git",
+    "branch": "main",
+    "paths": [
+      "src/plugins",
+      "src/webpack",
+      "src/api",
+      "src/components"
+    ]
+  },
+  "equicord": {
+    "repo": "https://github.com/Equicord/Equicord.git",
+    "branch": "main",
+    "apiExtras": [
+      "src/api/AudioPlayer.ts",
+      "src/api/HeaderBar.tsx",
+      "src/api/UserArea.tsx",
+      "src/api/GifPickerContextMenu.tsx"
+    ]
+  },
+  "preserve": [
+    "src/decplugins",
+    "src/components/settings/tabs/plugins"
+  ]
+}

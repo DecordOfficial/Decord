@@ -1,5 +1,5 @@
 /*
- * Vencord, a modification for Discord's desktop app
+ * Decord, a modification for Discord's desktop app
  * Copyright (c) 2022 Vendicated and contributors
  *
  * This program is free software: you can redistribute it and/or modify
@@ -41,12 +41,24 @@ import { JSX } from "react";
 import Plugins, { ExcludedPlugins, PluginMeta } from "~plugins";
 
 import { PluginCard } from "./PluginCard";
+import { getPluginSource, PluginSource, PluginSourceLabels } from "./PluginSource";
 import { UIElementsButton } from "./UIElements";
 
 export const cl = classNameFactory("vc-plugins-");
 export const logger = new Logger("PluginSettings", "#a6d189");
 
-function ReloadRequiredCard({ required }: { required: boolean; }) {
+interface PluginSourceCounts {
+    [PluginSource.VENCORD]: number;
+    [PluginSource.EQUICORD]: number;
+    [PluginSource.DECORD]: number;
+    [PluginSource.USER]: number;
+}
+
+function ReloadRequiredCard({ required, sourceCounts, onSelectSource }: {
+    required: boolean;
+    sourceCounts: PluginSourceCounts;
+    onSelectSource(source: PluginSource): void;
+}) {
     return (
         <Card variant={required ? "warning" : "normal"} className={cl("info-card")}>
             {required
@@ -66,6 +78,18 @@ function ReloadRequiredCard({ required }: { required: boolean; }) {
                         <HeadingTertiary>Plugin Management</HeadingTertiary>
                         <Paragraph>Press the cog wheel or info icon to get more info on a plugin</Paragraph>
                         <Paragraph>Plugins with a cog wheel have settings you can modify!</Paragraph>
+                        <div className={cl("source-stats")}>
+                            {(Object.entries(PluginSourceLabels) as Array<[`${PluginSource}`, string]>).map(([source, label]) => (
+                                <button
+                                    className={cl("source-stat", `source-stat-${label.toLowerCase()}`)}
+                                    key={source}
+                                    onClick={() => onSelectSource(Number(source) as PluginSource)}
+                                >
+                                    <span>{label} Plugins</span>
+                                    <strong>{sourceCounts[Number(source) as PluginSource]}</strong>
+                                </button>
+                            ))}
+                        </div>
                     </>
                 )}
         </Card>
@@ -78,8 +102,17 @@ const enum SearchStatus {
     DISABLED,
     NEW,
     USER_PLUGINS,
-    API_PLUGINS
+    API_PLUGINS,
+    VENCORD_PLUGINS,
+    EQUICORD_PLUGINS,
+    DECORD_PLUGINS
 }
+
+const PluginSectionLabels: Record<Exclude<PluginSource, PluginSource.USER>, string> = {
+    [PluginSource.VENCORD]: "Vencord Plugins",
+    [PluginSource.EQUICORD]: "Equicord Plugins",
+    [PluginSource.DECORD]: "Decord Plugins"
+};
 
 function ExcludedPluginsList({ search }: { search: string; }) {
     const matchingExcludedPlugins = search
@@ -92,7 +125,7 @@ function ExcludedPluginsList({ search }: { search: string; }) {
         discordDesktop: "Discord Desktop app",
         vesktop: "Vesktop app",
         web: "Vesktop app and the Web version of Discord",
-        dev: "Developer version of Vencord"
+        dev: "Developer version of Decord"
     };
 
     return (
@@ -162,12 +195,38 @@ function PluginSettings() {
         []
     );
 
+    const sourceCounts = useMemo(() => {
+        const counts: PluginSourceCounts = {
+            [PluginSource.VENCORD]: 0,
+            [PluginSource.EQUICORD]: 0,
+            [PluginSource.DECORD]: 0,
+            [PluginSource.USER]: 0
+        };
+
+        for (const plugin of sortedPlugins) {
+            if (!plugin.hidden)
+                counts[getPluginSource(plugin.name)]++;
+        }
+
+        return counts;
+    }, [sortedPlugins]);
+
     const hasUserPlugins = useMemo(() => !IS_STANDALONE && Object.values(PluginMeta).some(m => m.userPlugin), []);
 
     const [searchValue, setSearchValue] = useState({ value: "", tags: [] as PluginTag[], status: SearchStatus.ALL });
 
     const search = searchValue.value.toLowerCase();
     const onSearch = (query: string) => setSearchValue(prev => ({ ...prev, value: query }));
+    const selectSourceFilter = (source: PluginSource) => {
+        const status = {
+            [PluginSource.VENCORD]: SearchStatus.VENCORD_PLUGINS,
+            [PluginSource.EQUICORD]: SearchStatus.EQUICORD_PLUGINS,
+            [PluginSource.DECORD]: SearchStatus.DECORD_PLUGINS,
+            [PluginSource.USER]: SearchStatus.USER_PLUGINS
+        }[source];
+
+        setSearchValue(prev => ({ ...prev, status }));
+    };
 
     const pluginFilter = (plugin: typeof Plugins[keyof typeof Plugins]) => {
         const { status, tags } = searchValue;
@@ -187,6 +246,15 @@ function PluginSettings() {
                 break;
             case SearchStatus.API_PLUGINS:
                 if (!plugin.name.endsWith("API")) return false;
+                break;
+            case SearchStatus.VENCORD_PLUGINS:
+                if (getPluginSource(plugin.name) !== PluginSource.VENCORD) return false;
+                break;
+            case SearchStatus.EQUICORD_PLUGINS:
+                if (getPluginSource(plugin.name) !== PluginSource.EQUICORD) return false;
+                break;
+            case SearchStatus.DECORD_PLUGINS:
+                if (getPluginSource(plugin.name) !== PluginSource.DECORD) return false;
                 break;
         }
 
@@ -219,7 +287,11 @@ function PluginSettings() {
         return lodash.isEqual(newPlugins, sortedPluginNames) ? [] : newPlugins;
     }));
 
-    const plugins = [] as JSX.Element[];
+    const pluginsBySource: Record<Exclude<PluginSource, PluginSource.USER>, JSX.Element[]> = {
+        [PluginSource.VENCORD]: [],
+        [PluginSource.EQUICORD]: [],
+        [PluginSource.DECORD]: []
+    };
     const requiredPlugins = [] as JSX.Element[];
 
     const showApi = searchValue.status === SearchStatus.API_PLUGINS;
@@ -233,7 +305,7 @@ function PluginSettings() {
 
         if (isRequired) {
             const tooltipText = p.required || !depMap[p.name]
-                ? "This plugin is required for Vencord to function."
+                ? "This plugin is required for Decord to function."
                 : makeDependencyList(depMap[p.name]?.filter(d => settings.plugins[d].enabled));
 
             requiredPlugins.push(
@@ -251,7 +323,8 @@ function PluginSettings() {
                 </Tooltip>
             );
         } else {
-            plugins.push(
+            const source = getPluginSource(p.name);
+            pluginsBySource[source === PluginSource.USER ? PluginSource.DECORD : source].push(
                 <PluginCard
                     onRestartNeeded={(name, key) => changes.handleChange(`${name}.${key}`)}
                     disabled={false}
@@ -263,9 +336,20 @@ function PluginSettings() {
         }
     }
 
+    const pluginSections = (Object.entries(PluginSectionLabels) as Array<[`${Exclude<PluginSource, PluginSource.USER>}`, string]>)
+        .map(([source, label]) => ({
+            label,
+            plugins: pluginsBySource[Number(source) as PluginSource]
+        }))
+        .filter(section => section.plugins.length);
+
     return (
         <SettingsTab>
-            <ReloadRequiredCard required={changes.hasChanges} />
+            <ReloadRequiredCard
+                required={changes.hasChanges}
+                sourceCounts={sourceCounts}
+                onSelectSource={selectSourceFilter}
+            />
 
             <UIElementsButton />
 
@@ -292,6 +376,9 @@ function PluginSettings() {
                             { label: "Show Disabled", value: SearchStatus.DISABLED },
                             { label: "Show New", value: SearchStatus.NEW },
                             hasUserPlugins && { label: "Show UserPlugins", value: SearchStatus.USER_PLUGINS },
+                            { label: "Show Vencord Plugins", value: SearchStatus.VENCORD_PLUGINS },
+                            { label: "Show Equicord Plugins", value: SearchStatus.EQUICORD_PLUGINS },
+                            { label: "Show Decord Plugins", value: SearchStatus.DECORD_PLUGINS },
                             { label: "Show API Plugins", value: SearchStatus.API_PLUGINS },
                         ].filter(isTruthy)}
                         serialize={String}
@@ -311,16 +398,19 @@ function PluginSettings() {
                 </div>
             </ErrorBoundary>
 
-            <HeadingTertiary className={Margins.top20}>Plugins</HeadingTertiary>
-
-            {plugins.length || requiredPlugins.length
+            {pluginSections.length || requiredPlugins.length
                 ? (
-                    <div className={cl("grid")}>
-                        {plugins.length
-                            ? plugins
-                            : <Paragraph>No plugins meet the search criteria.</Paragraph>
-                        }
-                    </div>
+                    pluginSections.map(({ label, plugins }, index) => (
+                        <section key={label}>
+                            {index > 0 && <Divider className={Margins.top20} />}
+                            <HeadingTertiary className={classes(Margins.top20, Margins.bottom8)}>
+                                {label}
+                            </HeadingTertiary>
+                            <div className={cl("grid")}>
+                                {plugins}
+                            </div>
+                        </section>
+                    ))
                 )
                 : <ExcludedPluginsList search={search} />
             }

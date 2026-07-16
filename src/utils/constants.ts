@@ -660,3 +660,9 @@ export const DevsById = /* #__PURE__*/ (() =>
             .map(([_, v]) => [v.id, v] as const)
     ))
 )() as Record<string, Dev>;
+
+export { EquicordDevs, EquicordDevsById } from "./equicordDevs";
+
+export const DecordDevs = /* #__PURE__*/ Object.freeze({
+    Owner: { name: "Decord", id: 0n, badge: false },
+} satisfies Record<string, Dev>);

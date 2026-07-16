@@ -1,0 +1,67 @@
+/* Performance Mode Toggle Plugin Styles */
+
+/* Button styles */
+.vc-performance-mode-btn {
+    min-width: auto !important;
+    padding: 4px 8px !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    border-radius: 4px !important;
+    transition: all 0.2s ease !important;
+}
+
+.vc-performance-mode-btn.enabled {
+    background: var(--green-500) !important;
+    color: white !important;
+    box-shadow: 0 0 8px rgba(67, 181, 129, 0.4) !important;
+}
+
+.vc-performance-mode-btn:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Performance optimizations CSS */
+.vc-performance-mode-enabled {
+    /* Reduce animations and transitions for better performance */
+    * {
+        animation-duration: 0.1s !important;
+        transition-duration: 0.1s !important;
+    }
+    
+    /* Disable hover effects on non-essential elements */
+    [class*="hover"]:not(.vc-performance-mode-btn):not([role="button"]):not([data-clickable="true"]) {
+        transition: none !important;
+    }
+    
+    /* Optimize message rendering */
+    [class*="message"] {
+        contain: layout style paint !important;
+    }
+    
+    /* Reduce blur effects */
+    [class*="blur"], [class*="backdrop"] {
+        backdrop-filter: none !important;
+        filter: none !important;
+    }
+    
+    /* Simplify gradients */
+    [style*="gradient"] {
+        background: var(--background-primary) !important;
+    }
+    
+    /* Reduce box shadows */
+    [class*="shadow"] {
+        box-shadow: none !important;
+    }
+    
+    /* Optimize images */
+    img, [class*="image"] {
+        image-rendering: optimizeSpeed !important;
+    }
+    
+    /* Disable complex transforms */
+    [style*="transform"]:not(.vc-performance-mode-btn) {
+        transform: none !important;
+    }
+}

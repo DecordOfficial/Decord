@@ -1,5 +1,5 @@
 /*
- * Vencord, a Discord client mod
+ * Decord, a Discord client mod
  * Copyright (c) 2023 Vendicated and contributors
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -89,7 +89,7 @@ function ContributorModal({ user, modalProps }: { user: User; modalProps: Render
                     )
                     : (
                         <Forms.FormText>
-                            This person has not made any plugins. They likely {ContributedHyperLink} to Vencord in other ways!
+                            This person has not made any plugins. They likely {ContributedHyperLink} to Decord in other ways!
                         </Forms.FormText>
                     )
             }

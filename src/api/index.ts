@@ -19,6 +19,10 @@
 import * as $Badges from "./Badges";
 import * as $ChatButtons from "./ChatButtons";
 import * as $Commands from "./Commands";
+import * as $GifPickerContextMenu from "./GifPickerContextMenu";
+import * as $UserArea from "./UserArea";
+import * as $HeaderBar from "./HeaderBar";
+import * as $AudioPlayer from "./AudioPlayer";
 import * as $ContextMenu from "./ContextMenu";
 import * as $DataStore from "./DataStore";
 import * as $MemberListDecorators from "./MemberListDecorators";
@@ -129,3 +133,11 @@ export const UserSettings = $UserSettings;
  * Don't use this
  */
 export const Themes = $Themes;
+
+export const AudioPlayer = $AudioPlayer;
+
+export const HeaderBar = $HeaderBar;
+
+export const UserArea = $UserArea;
+
+export const GifPickerContextMenu = $GifPickerContextMenu;
