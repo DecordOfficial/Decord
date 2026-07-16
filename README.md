@@ -33,12 +33,12 @@ https://discord.gg/D9uwnFnqmd
 
 ## Star History
 
-<a href="https://star-history.com/#VDecordOfficial/Decord&Timeline">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=DecordOfficial/Decord&type=Timeline&theme=dark" />
-    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=DecordOfficial/Decord&type=Timeline" />
-    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=DecordOfficial/Decord&type=Timeline" />
-  </picture>
+<a href="https://www.star-history.com/?type=timeline&repos=DecordOfficial%2FDecord">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=DecordOfficial/Decord&type=timeline&theme=dark&legend=top-left&sealed_token=JacK5oSJ-ErYFaUPuT0joQk5MsF0EMqvfD-KSTstiSoXsOMPN6KYXz6S_WbiRof1E6mdgz74EyjEqkk4R2TsMaTnTmhGv26IqXXgjSNWZGngkOGKfXyMkr2P9G2v6tqLkcHoQTZFsG8K7l8FbBNpHhJfLE0Lu4Wq8-p_wy8_CbV4xHKyUO5Oevd07P8O" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=DecordOfficial/Decord&type=timeline&legend=top-left&sealed_token=JacK5oSJ-ErYFaUPuT0joQk5MsF0EMqvfD-KSTstiSoXsOMPN6KYXz6S_WbiRof1E6mdgz74EyjEqkk4R2TsMaTnTmhGv26IqXXgjSNWZGngkOGKfXyMkr2P9G2v6tqLkcHoQTZFsG8K7l8FbBNpHhJfLE0Lu4Wq8-p_wy8_CbV4xHKyUO5Oevd07P8O" />
+   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=DecordOfficial/Decord&type=timeline&legend=top-left&sealed_token=JacK5oSJ-ErYFaUPuT0joQk5MsF0EMqvfD-KSTstiSoXsOMPN6KYXz6S_WbiRof1E6mdgz74EyjEqkk4R2TsMaTnTmhGv26IqXXgjSNWZGngkOGKfXyMkr2P9G2v6tqLkcHoQTZFsG8K7l8FbBNpHhJfLE0Lu4Wq8-p_wy8_CbV4xHKyUO5Oevd07P8O" />
+ </picture>
 </a>
 
 ## Disclaimer
