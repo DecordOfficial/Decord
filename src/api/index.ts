@@ -134,10 +134,14 @@ export const UserSettings = $UserSettings;
  */
 export const Themes = $Themes;
 
+/** Equicord API */
 export const AudioPlayer = $AudioPlayer;
 
+/** Equicord API */
 export const HeaderBar = $HeaderBar;
 
+/** Equicord API */
 export const UserArea = $UserArea;
 
+/** Equicord API */
 export const GifPickerContextMenu = $GifPickerContextMenu;
